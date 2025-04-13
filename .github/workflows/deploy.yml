@@ -28,7 +28,8 @@ jobs:
           git config --global user.name "GitHub Actions"
 
           echo "Adding Heroku remote..."
-          HEROKU_REMOTE="https://heroku:${HEROKU_API_KEY}@git.heroku.com/my-ci-todo-app.git"
+          CLEAN_API_KEY=$(echo "$HEROKU_API_KEY" | tr -d '\n')
+          HEROKU_REMOTE="https://heroku:${CLEAN_API_KEY}@git.heroku.com/my-ci-todo-app.git"
           git remote add heroku "$HEROKU_REMOTE" || git remote set-url heroku "$HEROKU_REMOTE"
 
           echo "Pushing to Heroku..."
