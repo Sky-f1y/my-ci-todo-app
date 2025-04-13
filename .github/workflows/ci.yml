@@ -11,11 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
-    - run: npm install
-    - run: node index.js & # Start server in background
-    - run: sleep 3 && npm test
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'  # Using Node 18
+
+      - run: npm install
+
+      - name: Ensure mocha is executable
+        run: chmod +x ./node_modules/.bin/mocha
+
+      - run: sleep 3 && npm test  # Now mocha should run correctly
